@@ -8,30 +8,22 @@ import Link from "next/link"
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 
-
-
-// Step 2: This component is rendered from the server (Server-Side Rendering) SSR
 export default function Supplier({ supplier }) {
   const { register, handleSubmit, reset } = useForm();
   const [data, setData] = useState("");
 
-
   const updateBlog = async (data) => {
     const response = await fetch(`/api/suppliers/${supplier._id}`, {
-      method: "PUT", // *GET, POST, PUT, DELETE, etc.
-      mode: "cors", // no-cors, *cors, same-origin
-      cache: "no-cache", // *default, no-cache, reload, force-cache, only-if-cached
-      // credentials: "same-origin", // include, *same-origin, omit
+      method: "PUT",
+      mode: "cors",
+      cache: "no-cache",
       headers: {
         "Content-Type": "application/json",
-        // 'Content-Type': 'application/x-www-form-urlencoded',
       },
-      // redirect: "follow", // manual, *follow, error
-      referrerPolicy: "no-referrer", // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
-      // serialisation
-      body: JSON.stringify(data), // body data type must match "Content-Type" header
+      referrerPolicy: "no-referrer",
+      body: JSON.stringify(data),
     });
-    const result = await response.json();   // deserialise
+    const result = await response.json();
     if (result.error) {
       alert("Error: " + result.error)
     } else {
@@ -42,7 +34,6 @@ export default function Supplier({ supplier }) {
     setData(JSON.stringify(data))
   }
 
-  console.log('blog 2', supplier)
   if (!supplier) return (
     <div>
       <p>Supplier not found</p>
@@ -56,29 +47,75 @@ export default function Supplier({ supplier }) {
         <title>Update {supplier.name}</title>
       </Head>
 
-<p>{JSON.stringify(supplier)}</p>
-      <div style={{ margin: '1rem' }}>
+      <div className="container">
         <form onSubmit={handleSubmit(updateBlog)}>
           <h1>Update Supplier</h1>
-          <label htmlFor="name">Name</label><br />
+          <label htmlFor="name">Name</label>
           <input id="name" {...register("name", { required: true })}
             placeholder="Supplier Name"
-          /><br />
+          />
 
           <label htmlFor="address">Address</label>
           <input id="address" {...register("address", { required: true })} placeholder="Address"/>
-          <label htmlFor="phonenumber">Phone number</label><br />
+          <label htmlFor="phonenumber">Phone number</label>
           <input id="phonenumber" {...register("phonenumber")} placeholder="phone number"
             /><br />
           <input type="submit" />
           <p>{data}</p><br />
+          <Link href="/suppliers">Back</Link>
         </form>
       </div>
 
-      <Link href="/suppliers">Back</Link>
+      
+
+      <style jsx>{`
+        .container {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          margin: 6rem;
+          
+        }
+
+        form {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          
+          
+        }
+
+        input[type="submit"] {
+          
+          padding: 0.5rem 1rem;
+          background-color: #4CAF50;
+          color: white;
+          border: none;
+          border-radius: 4px;
+          cursor: pointer;
+        }
+
+        input[type="submit"]:hover {
+          background-color: #3e8e41;
+        }
+
+        label {
+          margin-top: 1rem;
+          font-weight: bold;
+        }
+
+        input {
+          margin-top: 0.5rem;
+          padding: 0.5rem;
+          border-radius: 4px;
+          border: 1px solid #ccc;
+        }
+        
+      `}</style>
     </>
   )
 }
+
 
 // STEP 1: This function will be executed at the server before loading the page.
 export async function getServerSideProps({ params }) {

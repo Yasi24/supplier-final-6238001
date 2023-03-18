@@ -62,12 +62,13 @@ export default function AddSupplierPage() {
               </tbody>
             </table>
             <input type="submit" className="button" />
-            <Link href="/suppliers">Back</Link>
+            <a href="/suppliers" className="back-button">Back</a>
+
             <p>{data}</p>
           </form>
           <style>
             {`
-
+            
             .bg {
                 padding-top:200px;
                 background-color: #f5f5f5;
@@ -124,6 +125,28 @@ export default function AddSupplierPage() {
               }
               .button:hover {
                 background-color: #00698c;
+              }
+              .back-button {
+                padding: 10px;
+                background-color: #4caf50;
+                color: #fff;
+                border: none;
+                border-radius: 5px;
+                cursor: pointer;
+                width: 46%;
+                text-align: center;
+                
+                
+                text-decoration: none;
+                
+                
+                
+                
+              }
+              
+              .back-button:hover {
+                background-color: #3e8e41;
+                transition: background-color 0.3s ease;
               }
               p {
                 font-size: 14px;
