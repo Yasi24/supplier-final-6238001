@@ -1,6 +1,6 @@
 import Head from 'next/head'
 import Link from 'next/link'
-import { useEffect, useState } from 'react'
+
 
 export default function Home({ suppliers }) {
   function deleteSupplier(id) {
