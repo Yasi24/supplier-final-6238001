@@ -20,12 +20,11 @@ export default function Home({ suppliers }) {
       </Head>
       <nav>
         <h3 className="title">Ahmad's Suppliers</h3>
-        <ul>
-          <li>
-            <Link className='linked1' href="/">Home</Link>
-          </li>
-          
-        </ul>
+        
+        
+        <a  href="/">Home</a>
+            
+        
       </nav>
       <main>
       
@@ -87,12 +86,14 @@ export default function Home({ suppliers }) {
             size: 10px;
           }
           nav a {
-            color: #fff;
+            color: white;
             text-decoration: none;
+            font-weight: bold;
           }
           
           nav a:hover {
-            color: #f0f0f0;
+            color: yellow;
+            text-decoration: underline;
           }
           
           nav li:last-child {
@@ -172,7 +173,7 @@ export default function Home({ suppliers }) {
 }
 
 export async function getServerSideProps() {
-  const res = await fetch(`http://localhost:3000/api/suppliers/`);
+  const res = await fetch(`https://supplier-final-6238001.vercel.app/`);
   const suppliers = await res.json();
   return { props: { suppliers } };
 }
